@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "905334305653",
+    "project_id": "fresh-mart-1db2c",
+    "storage_bucket": "fresh-mart-1db2c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:905334305653:android:f0ddc5710f90f8d3c1193c",
+        "android_client_info": {
+          "package_name": "com.example.fresh_mart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "905334305653-k5lamrpsotlciffqkvkghmqbc5gt11o2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEsj_wqKIx5qUkHH6Hk3HF4LiWMACs0xY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "905334305653-k5lamrpsotlciffqkvkghmqbc5gt11o2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
