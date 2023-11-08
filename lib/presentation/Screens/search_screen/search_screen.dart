@@ -1,49 +1,92 @@
-
-
-
-
-import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:fresh_mart/core/colors.dart';
+import 'package:fresh_mart/presentation/Screens/productsScreen/product_details_screen.dart';
+import 'package:fresh_mart/domain/models/product_model.dart';
 
-class ScreenSearch extends StatelessWidget {
-  
-  const ScreenSearch({super.key});
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({super.key});
+
+  @override
+  _SearchScreenState createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  var inputText = "";
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      backgroundColor: backgroundColorgrey,
-      appBar: AppBar(
-        elevation: 0,
-        toolbarHeight: 100,
-        backgroundColor: backgroundColorWhite,
-        iconTheme: const IconThemeData(color: textColor),
-        centerTitle: true,
-        title: const Text(
-          'Search',
-          style: TextStyle(color: textColor),
-        ),
-      ),
-      body: Container(
-        height: MediaQuery.of(context).size.height/5.9,
-        width: double.infinity,
-        color:backgroundColorWhite,
-        child: Expanded(
-          child: TextField(
-             textAlignVertical: TextAlignVertical.center,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Search Category",
-                          hintStyle: TextStyle(
-                              fontSize: 14,
-                              color: hintTextColor,
-                              fontWeight: FontWeight.w500),
-                          prefixIcon: Icon(
-                            CupertinoIcons.search,
-                            color: textColor,
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              TextFormField(
+                onChanged: (val) {
+                  setState(() {
+                    inputText = val.toLowerCase();
+                    print(inputText);
+                  });
+                },
+                onFieldSubmitted: (val) {
+                  // Trigger the search here
+                  // You can call your search function here or dispatch a bloc event.
+                },
+              ),
+              Expanded(
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection("products")
+                      .where("name", isGreaterThanOrEqualTo: inputText)
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return const Center(
+                        child: Text("Something went wrong"),
+                      );
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: Text("Loading"),
+                      );
+                    }
+
+                    if (snapshot.data!.docs.isEmpty) {
+                      return const Center(
+                        child: Text("No search results found"),
+                      );
+                    }
+
+                    return ListView(
+                      children: snapshot.data!.docs
+                          .map((DocumentSnapshot document) {
+                        final Map<String, dynamic> data =
+                            document.data() as Map<String, dynamic>;
+                        final ProductModel product =
+                            ProductModel.fromJson(data);
+                        return Card(
+                          elevation: 5,
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ProductDetailsScreen(product: product),
+                                ),
+                              );
+                            },
+                            title: Text(product.name),
+                            leading: Image.network(product.imageUrls[0]),
                           ),
-                        ),
+                        );
+                      }).toList(),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ),
       ),

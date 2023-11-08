@@ -57,3 +57,19 @@ const kHeight50 = SizedBox(
 const kHeight100 = SizedBox(
   height: 100,
 );
+
+
+TextStyle kCartText1 = const TextStyle(
+color: Color(0xFF868889),
+fontSize: 12,
+fontFamily: 'Poppins',
+fontWeight: FontWeight.w500,
+);
+
+TextStyle kCartText2 = const TextStyle(
+color: Colors.black,
+fontSize: 18,
+fontFamily: 'Poppins',
+fontWeight: FontWeight.w600,
+height: 0,
+);

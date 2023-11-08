@@ -9,9 +9,10 @@ const primaryLight = Color(0xFFEAFFD7);
 const hintTextColor = Color(0xFF868889);
 const textColor = Color(0xFF202124);
 const splashColor = Color(0xff23AA49);
-TextStyle kcategoryText = const TextStyle(
+TextStyle kCategoryText = const TextStyle(
 color: Color(0xFF868889),
 fontSize: 10,
 fontFamily: 'Poppins',
 fontWeight: FontWeight.w500,
 );
+

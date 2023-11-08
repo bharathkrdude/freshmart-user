@@ -1,11 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:fresh_mart/Presentation/screens/Auth/auth_welcome_screen.dart';
+import 'package:fresh_mart/application/address/address_bloc.dart';
+import 'package:fresh_mart/application/cart/cart_bloc.dart';
 import 'package:fresh_mart/application/category/category_bloc.dart';
+import 'package:fresh_mart/application/checkout/checkout_bloc.dart';
+import 'package:fresh_mart/application/orders/orders_bloc.dart';
 import 'package:fresh_mart/application/product/product_bloc.dart';
 import 'package:fresh_mart/application/wishlist/whishlist_bloc.dart';
 import 'package:fresh_mart/core/colors.dart';
@@ -24,10 +28,16 @@ class ScreenHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String? userEmail = FirebaseAuth.instance.currentUser!.email;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      BlocProvider.of<WishlistBloc>(context).add(LoadWishList(email: userEmail!));
-    },);
+    final String? currentUser = FirebaseAuth.instance.currentUser!.email;
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        BlocProvider.of<CartBloc>(context).add(LoadCart(email: currentUser!));
+        BlocProvider.of<WishlistBloc>(context).add(WishListGetLoaded(email: currentUser));
+        BlocProvider.of<AddressBloc>(context).add(AddressLoaded());
+        BlocProvider.of<CheckoutBloc>(context).add(const CheckoutUpdated());
+        BlocProvider.of<OrdersBloc>(context).add(OrdersGetLoaded(email: currentUser!));
+      },
+    );
     return SafeArea(
       child: Scaffold(
         backgroundColor: backgroundColorgrey,
@@ -84,21 +94,7 @@ class ScreenHome extends StatelessWidget {
                         //         ],
                         //       ),
                         //     )),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: TextButton(
-                              onPressed: () {
-                                FirebaseAuth.instance
-                                    .signOut()
-                                    .then((value) => Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const WelcomeScreen(),
-                                        )));
-                              },
-                              child: const Text('Log Out')),
-                        ),
+                       SizedBox(height: 60,)
                       ],
                     ),
                   ),
@@ -126,11 +122,11 @@ class ScreenHome extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const ScreenSearch()));
+                                          const SearchScreen()));
                             },
                             readOnly: true,
                             textAlignVertical: TextAlignVertical.center,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border: InputBorder.none,
                               hintText: "Search Category",
                               hintStyle: TextStyle(
@@ -157,23 +153,20 @@ class ScreenHome extends StatelessWidget {
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
                       children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const CategoryScreen()));
-                          },
-                          child: _seeAllView(
-                            context,
-                            "Categories",
-                          ),
+                        _seeAllView(
+                          context,
+                          "Categories",
+                          () {
+                             Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const CategoryScreen()));
+                          }
                         ),
                         const SizedBox(
                           height: 24,
                         ),
-
                         BlocBuilder<CategoryBloc, CategoryState>(
                             builder: (context, state) {
                           if (state is CategoryLoading) {
@@ -196,30 +189,13 @@ class ScreenHome extends StatelessWidget {
                         _seeAllView(
                           context,
                           "Best Selling",
+                          (){
+
+                          }
                         ),
-
                         kWidth20,
-                        ProductSlideWidget(products: state.products)
-                        // Row(
-                        //   children: [
-                        //     Expanded(
-                        //       child: ProductCardWidget(
-                        //         imagePath: "assets/Images/bell_pepper_red.png",
-                        //         name: "Red Chilly",
-                        //         price: "1kg, 4\$",
-                        //         onTapCallback: () {},
-                        //       ),
-                        //     ),
-                        //     Expanded(
-                        //       child: ProductCardWidget(
-                        //           imagePath: "assets/Images/lamb_meat.png",
-                        //           name: "Lamb meat",
-                        //           price: "1kg, 4\$",
-                        //           onTapCallback: () {}),
-                        //     ),
-
-                        //   ],
-                        // ),
+                        ProductSlideWidget(
+                            key: UniqueKey(), products: state.products)
                       ],
                     ),
                   ),
@@ -236,7 +212,9 @@ class ScreenHome extends StatelessWidget {
 
   Widget _seeAllView(
     BuildContext context,
-    String name,
+   
+   final String name,
+   final VoidCallback onpress,
   ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -246,7 +224,7 @@ class ScreenHome extends StatelessWidget {
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         InkWell(
-          onTap: () {},
+          onTap: onpress,
           child: const Text(
             "See All",
             style: TextStyle(

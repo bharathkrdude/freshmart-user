@@ -1,6 +1,9 @@
-
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fresh_mart/application/cart/cart_bloc.dart';
+import 'package:fresh_mart/core/colors.dart';
+import 'package:fresh_mart/core/constants.dart';
 import 'package:fresh_mart/domain/models/product_model.dart';
 
 class CartItemWidget extends StatelessWidget {
@@ -10,17 +13,20 @@ class CartItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+            final String? userEmail = FirebaseAuth.instance.currentUser!.email;
+
     return Container(
+      color: backgroundColorWhite,
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-              child: Image.asset(
+              child: Image.network(
               product.imageUrls[0],
-            width: 40,
-            height: 40,
+            width: 60,
+            height: 60,
           )),
           Expanded(
             flex: 2,
@@ -29,55 +35,74 @@ class CartItemWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  product.name
-                  ,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold),
+                  "₹ ${product.price.toString()}",
+                  
+                  style: const TextStyle(
+                      color:  primaryDark,
+                      fontSize: 12,
+                      ),
                 ),
-                SizedBox(
-                  height: 8,
+                const SizedBox(
+                  height: 2,
                 ),
-                Text(product.price.toString(),
-                    style: TextStyle(
-                        color: Color(0xffFF324B),
-                        fontSize: 16,
+                Text(product.name,
+                    style: const TextStyle(
+                        color: textColor,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold)),
+                        const SizedBox(
+                  height: 2,
+                ),
+                        Text(product.unit,
+                    style: const TextStyle(
+                        color: hintTextColor,
+                        fontSize: 12,
+                       )),
+                        
               ],
             ),
           ),
           Expanded(
-            child: Row(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 InkWell(
                   onTap: (() {
-                    // setState(() {
-                    //   itemCount++;
-                    // });
+                     BlocProvider.of<CartBloc>(context)
+                                    .add(CartProductAdded(userEmail!, product));
                   }),
-                  child: Icon(Icons.add_circle_outline_rounded),
+                  child: const Icon(Icons.add,color: primary,),
                 ),
-                SizedBox(
-                  width: 8,
-                ),
+                kWidth,
                 Text(
                   quantity.toString(),
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
-                SizedBox(
-                  width: 8,
-                ),
+                kWidth,
                 InkWell(
-                  onTap: () {
-                    // setState(() {
-                    //   if (widget.quantity > 0) widget.quantity--;
-                    // });
-                  },
-                  child: Icon(Icons.remove_circle_outline)
+                  onTap: (quantity >1)?(){
+                     BlocProvider.of<CartBloc>(context)
+                                    .add(CartProductRemoved(userEmail!, product));
+                  }:() =>ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    behavior: SnackBarBehavior.floating,
+                                    margin: const EdgeInsets.all(5),
+                                    backgroundColor: const Color(0xff4CAF50),
+                                    content: Text(
+                                      'Minimum quantity of 1 is allowed.',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(
+                                              fontWeight: FontWeight.w600),
+                                    ),
+                                    duration: const Duration(seconds: 2),
+                                  ),
+                                ) ,
+                  child: Icon(Icons.remove,color:(quantity >1)? primary:primary.withOpacity(0.4),)
                 ),
               ],
             ),

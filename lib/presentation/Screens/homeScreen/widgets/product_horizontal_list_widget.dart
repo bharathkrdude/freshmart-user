@@ -16,7 +16,8 @@ class ProductSlideWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height / 3
+      height: MediaQuery.of(context).size.height / 4.2,
+      width: MediaQuery.of(context).size.width/0.5
       ,
       child: ListView.builder(
          
@@ -25,6 +26,7 @@ class ProductSlideWidget extends StatelessWidget {
           itemCount: products.length,
           itemBuilder: (context, index) {
             return ProductCardWidget(
+              key: UniqueKey(),
               product: products[index],
               onTapCallback: () {
                 Navigator.push(

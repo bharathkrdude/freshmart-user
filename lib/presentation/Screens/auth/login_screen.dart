@@ -6,22 +6,21 @@ import 'package:fresh_mart/Presentation/screens/Auth/auth_signup_screen.dart';
 import 'package:fresh_mart/Presentation/screens/Auth/widgets/snackbar.dart';
 import 'package:fresh_mart/Presentation/screens/main_screen/screen_main.dart';
 import 'package:fresh_mart/Presentation/widgets/custom_hint_text_widget.dart';
+import 'package:fresh_mart/core/constants.dart';
+import 'package:fresh_mart/presentation/Screens/auth/auth_welcome_screen.dart';
 import '../../../core/colors.dart';
 import '../../widgets/custom_text_widget.dart';
 import '../../widgets/primary_button_widget.dart';
 
 class LoginScreen extends StatefulWidget {
+  LoginScreen({super.key});
 
-   LoginScreen({super.key});
-
- 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  
- final GlobalKey<FormState> validationKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> validationKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -33,20 +32,22 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          
           child: Column(
             children: [
               SizedBox(
                 width: double.infinity,
-                height: size.height - size.height * 0.55,
+                height: size.height / 2.5,
                 child: Image.asset(
                   "assets/Images/create_account.png",
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 ),
               ),
               Form(
                 key: validationKey,
                 child: Container(
-                  height: size.height * 0.5,
+                  height: size.height /2.5,
                   width: double.infinity,
                   color: backgroundColorlightgrey,
                   child: Padding(
@@ -110,13 +111,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             // Implement your login logic here
                             // Access email and password using the controllers
                             if (_emailController.text.isEmpty &&
-                                _passwordController.text.isEmpty){
-                          
-                             alertSnackbar(context,'Fields Should be Filled');
-                                }
+                                _passwordController.text.isEmpty) {
+                              alertSnackbar(context, 'Fields Should be Filled');
+                            }
                             if (_emailController.text.isNotEmpty &&
                                 _passwordController.text.isNotEmpty) {
-                                  log('Here');
+                              log('Here');
                               FirebaseAuth.instance
                                   .signInWithEmailAndPassword(
                                       email: _emailController.text,
@@ -124,17 +124,27 @@ class _LoginScreenState extends State<LoginScreen> {
                                   .then((value) => Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => const ScreenMain(),
+                                          builder: (context) =>
+                                              const ScreenMain(),
                                         ),
-                                      )).onError((error, stackTrace) {
-                                            // ScaffoldMessenger(child: SnackBar(content:Text(error.toString())));
-                                          alertSnackbar(context,error.toString());
-                                            log(error.toString());
-                                          });
+                                      ))
+                                  .onError((error, stackTrace) {
+                                // ScaffoldMessenger(child: SnackBar(content:Text(error.toString())));
+                                alertSnackbar(context, error.toString());
+                                log(error.toString());
+                              });
                             }
                           },
                         ),
-                        const SizedBox(height: 10),
+                        kHeight,
+                       
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+               googleLogin(context),
+                        kHeight,
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -157,36 +167,29 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-             
             ],
           ),
         ),
       ),
     );
   }
-
-
 }
-  String? validateEmail(value) {
-    if (value!.isEmpty) {
-      return 'Please enter an email';
-    }
-    String? match = r'\w+@\w+\.\w+';
-    RegExp regex = RegExp(match);
-    if (!regex.hasMatch(value)) {
-      return 'invalid email';
-    }
-    return null;
-  }
 
-  String? password(value) {
-    if (value == '' || value == null) {
-      return 'Enter the password';
-    }
-    return null;
+String? validateEmail(value) {
+  if (value!.isEmpty) {
+    return 'Please enter an email';
   }
+  String? match = r'\w+@\w+\.\w+';
+  RegExp regex = RegExp(match);
+  if (!regex.hasMatch(value)) {
+    return 'invalid email';
+  }
+  return null;
+}
+
+String? password(value) {
+  if (value == '' || value == null) {
+    return 'Enter the password';
+  }
+  return null;
+}

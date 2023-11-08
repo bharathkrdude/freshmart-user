@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_mart/domain/models/whislist_model.dart';
 import 'package:fresh_mart/infrastructure/favourites/whislistrepository.dart';
@@ -11,37 +9,31 @@ part 'whishlist_event.dart';
 part 'whishlist_state.dart';
 
 class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
-  final WhislistRepository _whislistRepository;
-  StreamSubscription? _whislistSubscription;
-  WishlistBloc({required WhislistRepository whislistRepository})
-      : _whislistRepository = whislistRepository,
+  final WishlistRepository _wishlistRepository;
+  WishlistBloc({required WishlistRepository wishlistRepository})
+      : _wishlistRepository = wishlistRepository,
         super(WishlistLoading()) {
-    on<LoadWishList>(_onLoadwishlist);
-    on<UpdateWishlist>(_onUpdateWishlist);
+    on<WishListGetLoaded>(_onWishListGetLoaded);
     on<AddToWishlist>(_onAddToWishlist);
-    on<RemoveWishlist>(_onRemoveWishlist);
+    on<RemoveFromWishlist>(_onRemoveFromWishlist);
   }
 
-  void _onLoadwishlist(LoadWishList event, Emitter<WishlistState> emit) {
-    _whislistSubscription?.cancel();
-    _whislistSubscription = _whislistRepository.getProducts().listen(
-          (wishlist) => add(
-            UpdateWishlist(
-                wishlist.firstWhere((element) => element.email == event.email)),
-          ),
-        );
-  }
+  void _onWishListGetLoaded(
+      WishListGetLoaded event, Emitter<WishlistState> emit) async {
+    log('<<<<<<<<<wishlist bloc code>>>>>>>>>');
 
-  void _onUpdateWishlist(
-      UpdateWishlist event, Emitter<WishlistState> emit) async {
-    emit(WishlistLoading());
+    //emit(WishlistLoading());
     try {
+      WishlistModel wishlist =
+          await _wishlistRepository.getProducts(event.email);
+      log(wishlist.toString());
       await Future<void>.delayed(const Duration(seconds: 1));
       emit(
         WishlistLoaded(
-          wishlist: event.wishlist,
+          wishlist: wishlist,
         ),
       );
+      log('wishlist loaded successfully');
     } catch (e) {
       log('Something went wrong: $e');
     }
@@ -52,47 +44,44 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     try {
       final state = this.state;
       if (state is WishlistLoaded) {
-        final List<int> updatedList = state.wishlist.productList;
-        updatedList.add(event.productId);
         WishlistModel updatedWishlist = WishlistModel(
-          id: event.wishlistId,
-          productList: updatedList,
-          email: state.wishlist.email,
+          id: state.wishlist.id,
+          productList: List.from(state.wishlist.productList)
+            ..add(event.productId),
         );
-        _whislistRepository.updateWishlistProducts(event.wishlistId, updatedWishlist);
         emit(
-        WishlistLoaded(
-          wishlist: updatedWishlist,
-        ),
-      );
+          WishlistLoaded(
+            wishlist: updatedWishlist,
+          ),
+        );
+        _wishlistRepository.updateWishlistProducts(
+            event.email, state.wishlist.id, updatedWishlist);
       }
-      
-      
+      log('added to wishlist successfully');
     } catch (e) {
       log('Something went wrong: $e');
     }
   }
 
-  void _onRemoveWishlist(RemoveWishlist event, Emitter<WishlistState> emit) {
+  void _onRemoveFromWishlist(
+      RemoveFromWishlist event, Emitter<WishlistState> emit) {
     try {
       final state = this.state;
       if (state is WishlistLoaded) {
-        final List<int> updatedList = state.wishlist.productList;
-        updatedList.remove(event.productId);
         WishlistModel updatedWishlist = WishlistModel(
-          id: event.wishlistId,
-          productList: updatedList,
-          email: state.wishlist.email,
+          id: state.wishlist.id,
+          productList: List.from(state.wishlist.productList)
+            ..remove(event.productId),
         );
-        _whislistRepository.updateWishlistProducts(event.wishlistId, updatedWishlist);
         emit(
-        WishlistLoaded(
-          wishlist: updatedWishlist,
-        ),
-      );
+          WishlistLoaded(
+            wishlist: updatedWishlist,
+          ),
+        );
+        _wishlistRepository.updateWishlistProducts(
+            event.email, state.wishlist.id, updatedWishlist);
       }
-      
-      
+      log('removed from wishlist successfully');
     } catch (e) {
       log('Something went wrong: $e');
     }

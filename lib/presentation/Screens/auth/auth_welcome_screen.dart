@@ -65,57 +65,7 @@ class WelcomeScreen extends StatelessWidget {
                       const SizedBox(
                         height: double.minPositive,
                       ),
-                      Container(
-                        height: 60,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.0),
-                          color: Colors.white,
-                        ),
-                        child: Material(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: InkWell(
-                            onTap: () {
-                           FirebaseSignService()
-                                  .signInWithGoogle().then((value) => Navigator.pushReplacement(context,
-                                   MaterialPageRoute(builder: (context) => const ScreenMain(),))).onError((error, stackTrace) {
-                                        ScaffoldMessenger(child: SnackBar(content:Text(error.toString())));
-                                      alertSnackbar(context,error.toString());
-                                        log(error.toString());
-                                      });
-                                  
-                            },
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal:
-                                      8.0), // Equal padding from both sides
-                              child: Row(
-                                children: [
-                                  const SizedBox(width: 8.0),
-                                  Container(
-                                    width: 22,
-                                    height: 22,
-                                    decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            'assets/Images/google_icon.png'),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                        alignment: Alignment.center,
-                                        child: const CustomTextWidget(
-                                            text: 'Continue with google',
-                                            fontSize: 15)),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      googleLogin(context),
                       const SizedBox(
                         height: 10,
                       ),
@@ -155,4 +105,61 @@ class WelcomeScreen extends StatelessWidget {
       ),
     );
   }
+
+  
 }
+
+
+Container googleLogin(BuildContext context) {
+    return Container(
+                      height: 60,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.0),
+                        color: Colors.white,
+                      ),
+                      child: Material(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: InkWell(
+                          onTap: () {
+                         FirebaseSignService()
+                                .signInWithGoogle().then((value) => Navigator.pushReplacement(context,
+                                 MaterialPageRoute(builder: (context) => const ScreenMain(),))).onError((error, stackTrace) {
+                                      ScaffoldMessenger(child: SnackBar(content:Text(error.toString())));
+                                    alertSnackbar(context,error.toString());
+                                      log(error.toString());
+                                    });
+                                
+                          },
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal:
+                                    8.0), // Equal padding from both sides
+                            child: Row(
+                              children: [
+                                const SizedBox(width: 8.0),
+                                Container(
+                                  width: 22,
+                                  height: 22,
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/Images/google_icon.png'),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                      alignment: Alignment.center,
+                                      child: const CustomTextWidget(
+                                          text: 'Continue with google',
+                                          fontSize: 15)),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+  }

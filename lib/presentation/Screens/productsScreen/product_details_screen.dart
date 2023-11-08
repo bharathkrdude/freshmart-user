@@ -1,11 +1,14 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_mart/Presentation/screens/Auth/widgets/snackbar.dart';
 import 'package:fresh_mart/application/cart/cart_bloc.dart';
+import 'package:fresh_mart/application/wishlist/whishlist_bloc.dart';
 import 'package:fresh_mart/core/colors.dart';
 import 'package:fresh_mart/core/constants.dart';
 import 'package:fresh_mart/domain/models/product_model.dart';
+import 'package:fresh_mart/presentation/Screens/homeScreen/widgets/product_card_widget.dart';
 import 'package:fresh_mart/presentation/widgets/primary_button_widget.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
@@ -17,6 +20,9 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        final String? userEmail = FirebaseAuth.instance.currentUser!.email;
+
+    final wishlistBloc = BlocProvider.of<WishlistBloc>(context);
     
     return Scaffold(
       backgroundColor: backgroundColorWhite,
@@ -63,7 +69,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                       
                     ),
-                    const Icon(Icons.favorite_outline,color: hintTextColor,)
+                    WishlistLikeButton(product: product, wishlistBloc: wishlistBloc)
                     
                    
                   ],
@@ -101,7 +107,7 @@ class ProductDetailsScreen extends StatelessWidget {
       ),
       bottomSheet: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: PrimaryButtonWidget(title: 'Add to cart', onPressed: (){BlocProvider.of<CartBloc>(context).add(CartProductAdded(product)); alertSnackbar(context, "item added to cart");}),
+        child: PrimaryButtonWidget(title: 'Add to cart', onPressed: (){BlocProvider.of<CartBloc>(context).add(CartProductAdded(userEmail!, product)); alertSnackbar(context, "item added to cart");}),
       ),
     );
   }

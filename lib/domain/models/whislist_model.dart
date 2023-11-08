@@ -5,19 +5,16 @@ import 'package:equatable/equatable.dart';
 
 class WishlistModel extends Equatable {
   final String id;
-  final String email;
   final List<int> productList;
   const WishlistModel({
-    required this.id,
-    required this.productList,
-    required this.email,
+    this.id = '',
+    this.productList = const <int>[],
   });
 
   @override
   List<Object?> get props => [
         id,
         productList,
-        email,
       ];
 
  
@@ -25,7 +22,6 @@ class WishlistModel extends Equatable {
   Map<String, dynamic> toMap() => {
         'id': id,
         'productList': productList,
-        'email' : email
       };
 
   factory WishlistModel.fromSnapshot(DocumentSnapshot snap) {
@@ -34,12 +30,8 @@ class WishlistModel extends Equatable {
     return WishlistModel(
       id: snap['id'],
       productList: productList,
-      email : snap['email'],
     );
   }
 
   String toJson() => json.encode(toMap());
-
-
-  
 }

@@ -51,11 +51,11 @@ class CartModel extends Equatable {
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> productsMapToJson = productsMap.map((key, value) {
-      // Convert each key-value pair to the desired types.
-      ProductModel product = key; // Assuming 'key' is the ProductModel instance
-      int quantity = value;
-      return MapEntry(product.toJson(), quantity);
-    });
+    // Convert each key-value pair to the desired types.
+    ProductModel product = key; // Assuming 'key' is the ProductModel instance
+    int quantity = value;
+    return MapEntry(product.toJson(), quantity);
+  });
     return {
       'id': id,
       'productsMap': productsMapToJson,

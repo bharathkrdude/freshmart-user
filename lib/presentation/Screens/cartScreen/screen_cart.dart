@@ -1,74 +1,111 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fresh_mart/Presentation/widgets/primary_button_widget.dart';
 import 'package:fresh_mart/application/cart/cart_bloc.dart';
-
-
+import 'package:fresh_mart/core/colors.dart';
+import 'package:fresh_mart/presentation/Screens/cartScreen/widgets/cart_bill_widget.dart';
+import 'package:lottie/lottie.dart';
 import 'widgets/cart_item_widget.dart';
 
 class ScreenCart extends StatelessWidget {
-  const ScreenCart({super.key});
+  const ScreenCart({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    
+        final String? userEmail = FirebaseAuth.instance.currentUser!.email;
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundColorgrey,
       appBar: AppBar(
+        elevation: 1,
+        toolbarHeight: 100,
+        backgroundColor: backgroundColorWhite,
+        iconTheme: const IconThemeData(color: textColor),
         centerTitle: true,
-        title: Text(
-          "Cart",
-          style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading: InkWell(
-          onTap: () => Navigator.pop(context),
-          child: Image.asset(
-            "assets/images/back_icon.png",
-            scale: 2.2,
-          ),
+        title: const Text(
+          'Cart',
+          style: TextStyle(color: textColor),
         ),
       ),
-      body: Stack(
+      body: Column(
         children: [
-          BlocBuilder<CartBloc, CartState>(
-            builder: (context, state) {
-              if (state is CartLoading) {
-                return CircularProgressIndicator();
-              } else if (state is CartLoaded) {
-                return Container(
-                  margin: const EdgeInsets.symmetric(vertical: 16),
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) {
-                      return Divider();
-                    },
+          Expanded(
+            child: BlocBuilder<CartBloc, CartState>(
+              builder: (context, state) {
+                if (state is CartLoading) {
+                  return const CircularProgressIndicator();
+                } else if (state is CartLoaded 
+                
+                
+          ) {
+                  return ListView.builder(
+                    padding: const EdgeInsets.all(8),
                     itemCount: state.cart.productsMap.length,
                     itemBuilder: (context, index) {
-                      return CartItemWidget(
-                          product: state.cart.productsMap.keys.elementAt(index),
-                          quantity:
-                              state.cart.productsMap.values.elementAt(index));
+                      final product = state.cart.productsMap.keys.elementAt(index);
+                      final quantity = state.cart.productsMap.values.elementAt(index);
+
+                      return Column(
+                        children: [
+                          Dismissible(
+                            key: UniqueKey(),
+                            onDismissed: (direction) {
+                              // Remove the item from the cart here
+                              BlocProvider.of<CartBloc>(context).add(CartProductDeleted(userEmail!, product));
+                            },
+                            background: Container(
+                              
+                              color: Colors.red,
+                              alignment: Alignment.centerRight,
+                              child: const Icon(
+                                Icons.delete,
+                                color: Colors.white,
+                              ),
+                            ),
+                            child: CartItemWidget(
+                              product: product,
+                              quantity: quantity,
+                            ),
+                          ),
+                          const Divider(),
+                        ],
+                      );
                     },
-                  ),
+                  );
+                }
+                 else {
+                  return const Text("Something went wrong");
+                }
+              },
+            ),
+          ),
+          BlocBuilder<CartBloc, CartState>(
+            builder: (context, state) {
+              if (state is CartLoaded && state.cart.productsMap.isNotEmpty) {
+                return CartBillWidget(
+                  subTotal: state.cart.subTotal,
+                  deliveryFee: state.cart.deliveryFee,
+                  totalAmount: state.cart.grandTotal,
                 );
               } else {
-                return Text("something went wrong");
-              }
+                return  
+                     Expanded(
+                       child: Lottie.asset('assets/lottie/cartAnimation.json', width: double.infinity,
+                       height: double.infinity,
+                       fit: BoxFit.fill,),
+                     );
+                }
+              
             },
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-              FractionallySizedBox(
-                widthFactor: 1,
-                child: PrimaryButtonWidget(title: "checkout", onPressed: (){})
-              )
-            ]),
-          )
         ],
       ),
     );
   }
 }
+
+
+
+
+
+

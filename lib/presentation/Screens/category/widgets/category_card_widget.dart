@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:fresh_mart/core/colors.dart';
 import 'package:fresh_mart/domain/models/category_model.dart';
@@ -38,7 +36,7 @@ class CategoryCard extends StatelessWidget {
               const SizedBox(
                 height: 5,
               ),
-              Text(category.name,style: kcategoryText,)
+              Text(category.name,style: kCategoryText,)
             ],
           ),
         ),

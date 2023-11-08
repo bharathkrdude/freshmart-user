@@ -42,13 +42,13 @@ class BottomNavigationWidget extends StatelessWidget {
             // Set unselected label color
             items: const [
               BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined),
+                icon: Icon(Icons.home),
                 label: 'Home',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.account_circle_outlined),
                 label: 'Account',
-              ),
+              ), 
               BottomNavigationBarItem(
                 icon: Icon(Icons.favorite_border_outlined),
                 label: 'favourites',

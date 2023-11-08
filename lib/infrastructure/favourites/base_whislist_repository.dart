@@ -1,8 +1,7 @@
-
-
 import 'package:fresh_mart/domain/models/whislist_model.dart';
 
-abstract class BaseWhislistRepository {
-  Stream<List<WishlistModel>>  getProducts();
-  Future<void> updateWishlistProducts(String wishlistId,WishlistModel newWishlist);
+abstract class BaseWishlistRepository {
+  Future<WishlistModel>  getProducts(String email);
+  Future<void> updateWishlistProducts(String email,String wishlistId,WishlistModel newWishlist);
+  
 }

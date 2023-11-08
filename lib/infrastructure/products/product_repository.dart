@@ -19,4 +19,15 @@ class ProductRepository extends BaseProductRepository {
           .toList();
     });
   }
+  Stream<List<ProductModel>> searchProducts(String query) {
+  return _firebaseFirestore
+      .collection('products')
+      .where('name', isGreaterThanOrEqualTo: query)
+      .snapshots()
+      .map((snapshot) {
+    return snapshot.docs
+        .map((doc) => ProductModel.fromSnapshot(doc))
+        .toList();
+  });
+}
 }

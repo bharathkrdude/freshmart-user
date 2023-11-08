@@ -42,20 +42,20 @@ class EachCategoryScreen extends StatelessWidget {
                   .where((product) => product.category == category.name)
                   .toList();
               return GridView.builder(
-                
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  
                   crossAxisCount: 2,
                   crossAxisSpacing: 4,
                   mainAxisSpacing: 4,
-                  mainAxisExtent: 250,
+                  mainAxisExtent: 180,
                 ),
                 itemBuilder: (context, index) {
                   return ProductCardWidget(
                       product: eachCategoryProducts[index],
                       onTapCallback: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder:(context) =>
-                                         ProductDetailsScreen(product: eachCategoryProducts[index],) ));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => ProductDetailsScreen(
+                                  product: eachCategoryProducts[index],
+                                )));
                       });
                 },
                 itemCount: eachCategoryProducts.length,
