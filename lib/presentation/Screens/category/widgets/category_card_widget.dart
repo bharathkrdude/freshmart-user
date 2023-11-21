@@ -26,12 +26,12 @@ class CategoryCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CircleAvatar(
+                backgroundColor: backgroundColorgrey,
+                radius: 34,
                 child: Image.network(category.imageUrl,
                   fit: BoxFit.contain,
                   
                 ),
-                backgroundColor: backgroundColorgrey,
-                radius: 34,
               ),
               const SizedBox(
                 height: 5,

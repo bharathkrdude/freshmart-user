@@ -37,6 +37,7 @@ class EditAddressScreen extends StatelessWidget {
   final stateController = TextEditingController();
   final pinController = TextEditingController();
   String? addressType;
+  final String? currentUser = FirebaseAuth.instance.currentUser!.email;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,7 @@ class EditAddressScreen extends StatelessWidget {
         ),
       ),
         body: ListView(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           children: [
             Form(
               key: formKey,
@@ -109,8 +110,8 @@ class EditAddressScreen extends StatelessWidget {
                   pincode: pinController.text.trim(),
                   type: addressType!,
                 );
-                BlocProvider.of<AddressBloc>(context)
-                    .add(AddressEdited(updatedAddress));
+                 BlocProvider.of<AddressBloc>(context)
+                    .add(AddressEdited(email: currentUser!, address: updatedAddress));
                 Navigator.pop(context);
               } else {
                 log('not valid');

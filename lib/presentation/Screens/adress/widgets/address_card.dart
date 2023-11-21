@@ -148,8 +148,8 @@ class AddressCardWidget extends StatelessWidget {
                                   value: "Delete",
                                   child: TextButton(
                                     onPressed: () async {
-                                      BlocProvider.of<AddressBloc>(context)
-                                          .add(AddressDeleted(  address.id));
+                                     BlocProvider.of<AddressBloc>(context)
+                                          .add(AddressDeleted(email: currentUser!, addressId: address.id));
                                       Navigator.pop(context);
                                     },
                                     child: Text(

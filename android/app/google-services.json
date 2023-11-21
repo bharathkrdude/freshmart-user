@@ -7,14 +7,14 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:905334305653:android:f0ddc5710f90f8d3c1193c",
+        "mobilesdk_app_id": "1:905334305653:android:5cf9a8cb579239c9c1193c",
         "android_client_info": {
-          "package_name": "com.example.fresh_mart"
+          "package_name": "com.example.admin_fresh_mart"
         }
       },
       "oauth_client": [
         {
-          "client_id": "905334305653-k5lamrpsotlciffqkvkghmqbc5gt11o2.apps.googleusercontent.com",
+          "client_id": "905334305653-3d1lpq3k4rn4dl1pb4ktn8l5vg5rap9o.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,8 +27,59 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "905334305653-k5lamrpsotlciffqkvkghmqbc5gt11o2.apps.googleusercontent.com",
+              "client_id": "905334305653-3d1lpq3k4rn4dl1pb4ktn8l5vg5rap9o.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "905334305653-34d4rg591uljekbrp7njgrhv9nhcj9on.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.adminFreshMart"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:905334305653:android:f0ddc5710f90f8d3c1193c",
+        "android_client_info": {
+          "package_name": "com.example.fresh_mart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "905334305653-smgr8iki4d351qs6oju609lj78itse30.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fresh_mart",
+            "certificate_hash": "e17914e96c2cf9ed5f25bb00aeb8611f22b6f2be"
+          }
+        },
+        {
+          "client_id": "905334305653-3d1lpq3k4rn4dl1pb4ktn8l5vg5rap9o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEsj_wqKIx5qUkHH6Hk3HF4LiWMACs0xY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "905334305653-3d1lpq3k4rn4dl1pb4ktn8l5vg5rap9o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "905334305653-34d4rg591uljekbrp7njgrhv9nhcj9on.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.adminFreshMart"
+              }
             }
           ]
         }

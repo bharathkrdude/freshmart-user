@@ -1,7 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fresh_mart">
+
+    <uses-permission
+     android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+     android:maxSdkVersion="18" />
+     
    <application
-        android:label="fresh_mart"
+        android:label="FreshMart"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

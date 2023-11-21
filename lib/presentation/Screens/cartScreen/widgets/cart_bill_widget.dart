@@ -1,11 +1,8 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fresh_mart/application/checkout/checkout_bloc.dart';
 import 'package:fresh_mart/core/colors.dart';
 import 'package:fresh_mart/core/constants.dart';
-import 'package:fresh_mart/domain/models/adress_model.dart';
 import 'package:fresh_mart/presentation/Screens/checkout/checkout_screen.dart';
 import 'package:fresh_mart/presentation/widgets/primary_button_widget.dart';
 

@@ -31,7 +31,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
   void _onAddressLoaded(AddressLoaded event, Emitter<AddressState> emit) {
     _addressSubscription?.cancel();
     _addressSubscription =
-        _addressRepository.getAllAddresses().listen((addresses) {
+        _addressRepository.getAllAddresses(event.email).listen((addresses) {
       if (addresses.isEmpty) {
         add(const AddressUpdated([]));
       } else {
@@ -61,7 +61,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
   }
 
   void _onAddressAdded(AddressAdded event, Emitter<AddressState> emit) async {
-    final address = FirebaseFirestore.instance.collection('addresses').doc();
+    final address = FirebaseFirestore.instance.collection('users').doc(event.email).collection('addresses').doc();
     try {
       final AddressModel newAddress = AddressModel(
         id: address.id,
@@ -74,7 +74,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
         pincode: event.address.pincode,
         type: event.address.type,
       );
-      await _addressRepository.updateAddress(address.id, newAddress);
+      await _addressRepository.updateAddress(event.email,address.id, newAddress);
       final state = this.state;
       if (state is AddressLoadedSuccess) {
         selectedIndex =
@@ -106,7 +106,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
         pincode: event.address.pincode,
         type: event.address.type,
       );
-      await _addressRepository.updateAddress(event.address.id, newAddress);
+      await _addressRepository.updateAddress(event.email,event.address.id, newAddress);
     } catch (e) {
       emit(AddressLoadedError());
       const Text('Something went wrong');
@@ -117,7 +117,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
   void _onAddressDeleted(
       AddressDeleted event, Emitter<AddressState> emit) async {
     try {
-      await _addressRepository.deleteAddress(event.addressId);
+      await _addressRepository.deleteAddress(event.email,event.addressId);
     } catch (e) {
       emit(AddressLoadedError());
       const Text('Something went wrong');

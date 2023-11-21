@@ -8,7 +8,7 @@ import 'package:lottie/lottie.dart';
 import 'widgets/cart_item_widget.dart';
 
 class ScreenCart extends StatelessWidget {
-  const ScreenCart({Key? key});
+  const ScreenCart({super.key,  });
 
   @override
   Widget build(BuildContext context) {

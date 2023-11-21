@@ -27,10 +27,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     yield SearchLoading();
 
     try {
-      final products = await productRepository.searchProducts(event.query);
+      final products = productRepository.searchProducts(event.query);
       yield SearchSuccess(products as List<ProductModel>);
     } catch (e) {
-      yield SearchFailure('An error occurred while searching.');
+      yield const SearchFailure('An error occurred while searching.');
     }
   }
 }

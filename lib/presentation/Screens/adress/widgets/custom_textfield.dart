@@ -3,23 +3,25 @@ import 'package:fresh_mart/core/colors.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final TextEditingController controller;
-  final String hintText;
   final String labelText;
   final bool obscureText;
   final TextInputType keyboardType;
   final IconData iconData;
   final FormFieldValidator<String>? validator;
   final double widthFactor;
+  final bool isMaxLength;
+  final int? maxLength;
   const CustomTextFormField({
     super.key,
     required this.controller,
-    this.hintText = '',
     required this.labelText,
     this.obscureText=false,
     required this.iconData,
     this.validator,
     this.keyboardType = TextInputType.text,
     this.widthFactor = 1.0,
+    this.isMaxLength = false,
+    this.maxLength,
   });
 
   @override
@@ -28,7 +30,7 @@ class CustomTextFormField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 10.0,
-        vertical: 5,
+        vertical: 7.0,
       ),
       child: SizedBox(
         width: width*widthFactor,
@@ -36,12 +38,14 @@ class CustomTextFormField extends StatelessWidget {
           controller: controller,
           textInputAction: TextInputAction.next,
           keyboardType: keyboardType,
+          maxLength: isMaxLength ? maxLength : null,
           onTapOutside: (event) {
             FocusManager.instance.primaryFocus?.unfocus();
           },
           cursorColor: Colors.black,
           obscureText: obscureText,
           decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(5),
             fillColor: backgroundColorWhite,
             labelText: labelText,
             filled: true,

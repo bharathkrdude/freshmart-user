@@ -5,7 +5,7 @@ import 'package:panara_dialogs/panara_dialogs.dart';
 
 class Utils {
   static final messengerKey = GlobalKey<ScaffoldMessengerState>();
-  static showSnackBar(String? text, Color color) {
+  static  showSnackBar (String? text, Color color) {
     log(messengerKey.currentState!.toString());
     if (text == null) {
       return;

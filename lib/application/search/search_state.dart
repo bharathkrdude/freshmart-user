@@ -15,7 +15,7 @@ class SearchLoading extends SearchState {}
 class SearchSuccess extends SearchState {
   final List<ProductModel> products;
 
-  SearchSuccess(this.products);
+  const SearchSuccess(this.products);
 
   @override
   List<Object?> get props => [products];
@@ -24,7 +24,7 @@ class SearchSuccess extends SearchState {
 class SearchFailure extends SearchState {
   final String error;
 
-  SearchFailure(this.error);
+  const SearchFailure(this.error);
 
   @override
   List<Object?> get props => [error];

@@ -135,8 +135,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   (state.address == null)
 
                       ? 
-                      Center(
-                        child: const SectionTitleWidget(
+                      const Center(
+                        child: SectionTitleWidget(
                             title: 'Delivery Address',
                           ),
                       )
@@ -147,7 +147,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             buttonText: 'Change',
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => AddressScreen()));
+                            builder: (context) => const AddressScreen()));
                             },
                           ),
                       ),
@@ -198,7 +198,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         maxWidth: 260,
                       );
                       await Future.delayed(const Duration(seconds: 2), () {
-                       Navigator.of(context).push(MaterialPageRoute(builder:(context) =>OrderConfirmation()));
+                       Navigator.of(context).push(MaterialPageRoute(builder:(context) =>const OrderConfirmation()));
                       });
                     },
                   ),
@@ -285,7 +285,7 @@ class SectionTitleWidget extends StatelessWidget {
               ? ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
-                        Color.fromARGB(255, 173, 172, 164).withAlpha(100)),
+                        const Color.fromARGB(255, 173, 172, 164).withAlpha(100)),
                     overlayColor: MaterialStateProperty.all<Color>(
                         Colors.white60.withOpacity(0.1)),
                   ),

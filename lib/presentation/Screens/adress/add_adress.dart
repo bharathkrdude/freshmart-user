@@ -3,9 +3,11 @@
 
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_mart/application/address/address_bloc.dart';
+import 'package:fresh_mart/application/checkout/checkout_bloc.dart';
 import 'package:fresh_mart/core/colors.dart';
 import 'package:fresh_mart/domain/models/adress_model.dart';
 import 'package:fresh_mart/presentation/Screens/adress/widgets/custom_textfield.dart';
@@ -31,6 +33,7 @@ class AddAddressScreen extends StatelessWidget {
   final cityController = TextEditingController();
   final stateController = TextEditingController();
   final pinController = TextEditingController();
+  final String? currentUser = FirebaseAuth.instance.currentUser!.email;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +56,7 @@ class AddAddressScreen extends StatelessWidget {
         ),
       ),
         body: ListView(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           children: [
             Form(
               key: formKey,
@@ -93,8 +96,9 @@ class AddAddressScreen extends StatelessWidget {
                   pincode: pinController.text.trim(),
                   type: addressType,
                 );
-                BlocProvider.of<AddressBloc>(context)
-                    .add(AddressAdded(newAddress));
+                 BlocProvider.of<AddressBloc>(context)
+                    .add(AddressAdded(email: currentUser!, address: newAddress));
+                BlocProvider.of<CheckoutBloc>(context).add(const CheckoutUpdated());
                 Navigator.pop(context);
               } else {
                 log('not valid');
@@ -144,7 +148,7 @@ class MainButtonWidget extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     
     // Define the gradient colors
-    List<Color> gradientColors = [Color(0xFFAEDC81), Color(0xFF6CC51D)];
+    List<Color> gradientColors = [const Color(0xFFAEDC81), const Color(0xFF6CC51D)];
 
     return Expanded(
       child: Padding(

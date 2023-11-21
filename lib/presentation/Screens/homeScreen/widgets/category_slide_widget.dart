@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:fresh_mart/domain/models/category_model.dart';
+import 'package:fresh_mart/presentation/Screens/category/each_catagory.dart';
 import 'package:fresh_mart/presentation/Screens/homeScreen/screen_home.dart';
 
 class CategorySlideWidget extends StatelessWidget {
@@ -22,7 +23,7 @@ class CategorySlideWidget extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: CategoryCircleWidget(category: category[index],onTap: () {
-              
+               Navigator.push(context, MaterialPageRoute(builder:(context) => EachCategoryScreen(category:category[index] ,) ));
             },),
           );
       }),

@@ -57,10 +57,16 @@ class OrdersScreen extends StatelessWidget {
               List<OrderModel> totalOrders = state.orders;
               totalOrders.sort((a, b) {
                 final DateFormat format = DateFormat('MMM d, yyyy');
-                final DateTime dateA = format.parse(a.placedAt);
+                final DateTime dateA = format.parse(a.placedAt); 
                 final DateTime dateB = format.parse(b.placedAt);
                 return dateB.compareTo(dateA);
               });
+//               totalOrders.sort((a, b) {
+//   final DateFormat format = DateFormat('MMM d, yyyy hh:mm a');
+//   final DateTime dateTimeA = format.parse('${a.placedAt} ${a.placedTime}');
+//   final DateTime dateTimeB = format.parse('${b.placedAt} ${b.placedTime}');
+//   return dateTimeB.compareTo(dateTimeA);                                                           
+// });
               log(state.orders.toString());
               log(totalOrders.length.toString());
               log(totalOrders.toString());

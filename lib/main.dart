@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:fresh_mart/Presentation/screens/splashscreens/splash_screen.dart';
 import 'package:fresh_mart/application/BottomNavBloc/bottom_nav_bloc.dart';
 import 'package:fresh_mart/application/cart/cart_bloc.dart';
@@ -11,6 +10,7 @@ import 'package:fresh_mart/application/category/category_bloc.dart';
 import 'package:fresh_mart/application/orders/orders_bloc.dart';
 import 'package:fresh_mart/application/payment/payment_bloc.dart';
 import 'package:fresh_mart/application/product/product_bloc.dart';
+import 'package:fresh_mart/application/profile/profile_bloc.dart';
 import 'package:fresh_mart/application/search/search_bloc.dart';
 import 'package:fresh_mart/application/wishlist/whishlist_bloc.dart';
 import 'package:fresh_mart/firebase_options.dart';
@@ -18,6 +18,7 @@ import 'package:fresh_mart/infrastructure/cart/cart_repository.dart';
 import 'package:fresh_mart/infrastructure/catagories/category_repository.dart';
 import 'package:fresh_mart/infrastructure/favourites/whislistrepository.dart';
 import 'package:fresh_mart/infrastructure/products/product_repository.dart';
+import 'package:fresh_mart/infrastructure/profile/profile_repository.dart';
 
 import 'application/address/address_bloc.dart';
 import 'application/checkout/checkout_bloc.dart';
@@ -29,7 +30,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp( const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String? userEmail = FirebaseAuth.instance.currentUser!.email;
+    final String? userEmail = FirebaseAuth.instance.currentUser?.email;
 
     return MultiBlocProvider(
       providers: [
@@ -72,6 +73,11 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => PaymentBloc()..add(PaymentMethodLoaded()),
+        ),
+        BlocProvider(
+          create: (_) => ProfileBloc(
+            profileRepository: ProfileRepository(),
+          ),
         ),
         BlocProvider(
           create: (context) => CheckoutBloc(

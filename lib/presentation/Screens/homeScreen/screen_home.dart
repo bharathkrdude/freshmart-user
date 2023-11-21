@@ -3,14 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:fresh_mart/Presentation/screens/Auth/auth_welcome_screen.dart';
 import 'package:fresh_mart/application/address/address_bloc.dart';
 import 'package:fresh_mart/application/cart/cart_bloc.dart';
 import 'package:fresh_mart/application/category/category_bloc.dart';
 import 'package:fresh_mart/application/checkout/checkout_bloc.dart';
 import 'package:fresh_mart/application/orders/orders_bloc.dart';
 import 'package:fresh_mart/application/product/product_bloc.dart';
+import 'package:fresh_mart/application/profile/profile_bloc.dart';
 import 'package:fresh_mart/application/wishlist/whishlist_bloc.dart';
 import 'package:fresh_mart/core/colors.dart';
 import 'package:fresh_mart/core/constants.dart';
@@ -33,9 +32,11 @@ class ScreenHome extends StatelessWidget {
       (_) {
         BlocProvider.of<CartBloc>(context).add(LoadCart(email: currentUser!));
         BlocProvider.of<WishlistBloc>(context).add(WishListGetLoaded(email: currentUser));
-        BlocProvider.of<AddressBloc>(context).add(AddressLoaded());
+        BlocProvider.of<AddressBloc>(context).add( AddressLoaded(email: currentUser));
+        BlocProvider.of<ProfileBloc>(context)
+            .add(ProfileGetLoaded(email: currentUser));
         BlocProvider.of<CheckoutBloc>(context).add(const CheckoutUpdated());
-        BlocProvider.of<OrdersBloc>(context).add(OrdersGetLoaded(email: currentUser!));
+        BlocProvider.of<OrdersBloc>(context).add(OrdersGetLoaded(email: currentUser));
       },
     );
     return SafeArea(
@@ -56,8 +57,8 @@ class ScreenHome extends StatelessWidget {
               return SingleChildScrollView(
                 child: Column(children: [
                   kWidth30,
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Row(
                       children: [
                         // Expanded(
@@ -144,9 +145,13 @@ class ScreenHome extends StatelessWidget {
                       )),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Image.asset(
-                      "assets/Images/banner.png",
-                      scale: 4.0,
+                    child: ClipRRect(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.asset(
+                        "assets/Images/freshmart-banner.png",
+                        scale: 4.0,
+                      ),
                     ),
                   ),
                   Padding(
@@ -180,7 +185,7 @@ class ScreenHome extends StatelessWidget {
                           }
                           if (state is CategoryLoaded) {
                             return CategorySlideWidget(
-                                category: state.categories);
+                                category: state.categories,);
                           } else {
                             return const Text('Something went wrong!!!');
                           }

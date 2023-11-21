@@ -10,7 +10,8 @@ class OrderModel extends Equatable {
   final List<Map<String, dynamic>> orderDetailsMap;
   final AddressModel? address;
   final String paymentMethod;
-  final String placedAt;
+  final String 
+  placedAt;
   final bool isPlaced;
   final bool isConfirmed;
   final bool isCancelled;

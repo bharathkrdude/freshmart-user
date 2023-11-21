@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -5,10 +6,12 @@ import 'package:fresh_mart/Presentation/Screens/Auth/login_screen.dart';
 import 'package:fresh_mart/Presentation/widgets/custom_hint_text_widget.dart';
 import 'package:fresh_mart/Presentation/widgets/custom_text_widget.dart';
 import 'package:fresh_mart/core/colors.dart';
+import 'package:fresh_mart/domain/models/profile_model.dart';
+import 'package:fresh_mart/infrastructure/profile/profile_repository.dart';
 import 'package:fresh_mart/presentation/widgets/primary_button_widget.dart';
 
 class SignupScreen extends StatefulWidget {
-  const SignupScreen({Key? key});
+  const SignupScreen({super.key,});
 
   @override
   State<SignupScreen> createState() => _SignupScreenState();
@@ -46,12 +49,16 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
           ),
         );
-
+      final profile = FirebaseFirestore.instance.collection('users').doc(_emailController.text).collection('profile')
+          .doc();
+      ProfileModel newProfile = ProfileModel(userName: '', userEmail: _emailController.text,id:profile.id);
+       await ProfileRepository().updateProfileData(_emailController.text, profile.id, newProfile
+       );
         // Navigate to the login screen
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) =>  LoginScreen(),
+            builder: (context) =>  const LoginScreen(),
           ),
         );
       }
@@ -206,7 +213,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>  LoginScreen(),
+                                    builder: (context) =>  const LoginScreen(),
                                   ),
                                 );
                               },

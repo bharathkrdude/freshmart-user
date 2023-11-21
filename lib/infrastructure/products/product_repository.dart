@@ -19,6 +19,7 @@ class ProductRepository extends BaseProductRepository {
           .toList();
     });
   }
+  @override
   Stream<List<ProductModel>> searchProducts(String query) {
   return _firebaseFirestore
       .collection('products')
