@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
-import 'package:fresh_mart/Presentation/screens/AccountScreen/screen_account.dart';
-import 'package:fresh_mart/Presentation/screens/favoritesScreen/favourites.dart';
-import 'package:fresh_mart/Presentation/screens/homeScreen/screen_home.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:fresh_mart/application/BottomNavBloc/bottom_nav_bloc.dart';
 import 'package:fresh_mart/core/colors.dart';
-import 'package:fresh_mart/presentation/Screens/cartScreen/screen_cart.dart';
+import 'package:fresh_mart/presentation/screens/account_screen/screen_account.dart';
+import 'package:fresh_mart/presentation/screens/cart/screen_cart.dart';
+import 'package:fresh_mart/presentation/screens/favorites/favourites.dart';
+import 'package:fresh_mart/presentation/screens/home/screen_home.dart';
+
+
 
 
 class BottomNavigationWidget extends StatelessWidget {
@@ -17,9 +20,9 @@ class BottomNavigationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screens = [
-      const ScreenHome(),
-      const ScreenAccount(),
-      const ScreenFavourites(),
+       const ScreenHome(),
+       const ScreenAccount(),
+       const ScreenFavourites(),
       const ScreenCart(),
     ];
     return BlocBuilder<BottomNavBloc, BottomNavState>(

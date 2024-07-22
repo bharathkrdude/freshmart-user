@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fresh_mart/Presentation/Screens/Auth/login_screen.dart';
 import 'package:fresh_mart/Presentation/widgets/custom_hint_text_widget.dart';
 import 'package:fresh_mart/Presentation/widgets/custom_text_widget.dart';
 import 'package:fresh_mart/core/colors.dart';
 import 'package:fresh_mart/domain/models/profile_model.dart';
 import 'package:fresh_mart/infrastructure/profile/profile_repository.dart';
+import 'package:fresh_mart/presentation/screens/auth/login_screen.dart';
 import 'package:fresh_mart/presentation/widgets/primary_button_widget.dart';
 
 class SignupScreen extends StatefulWidget {

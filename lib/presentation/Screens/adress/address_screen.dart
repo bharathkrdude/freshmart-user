@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_mart/application/address/address_bloc.dart';
 import 'package:fresh_mart/core/colors.dart';
-import 'package:fresh_mart/presentation/Screens/adress/add_adress.dart';
-import 'package:fresh_mart/presentation/Screens/adress/widgets/address_card.dart';
+import 'package:fresh_mart/presentation/screens/adress/add_adress.dart';
+import 'package:fresh_mart/presentation/screens/adress/widgets/address_card.dart';
+
 
 import '../checkout/checkout_screen.dart';
 

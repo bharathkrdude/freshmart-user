@@ -1,7 +1,5 @@
 import 'dart:developer';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:fresh_mart/application/bottomNavBloc/bottom_nav_bloc.dart';
 import 'package:fresh_mart/core/colors.dart';
 
 class CustomProfileDropDown extends StatelessWidget {

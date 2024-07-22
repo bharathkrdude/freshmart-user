@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_mart/Presentation/screens/splashscreens/splash_screen.dart';
@@ -26,6 +27,7 @@ import 'infrastructure/address/address_repository.dart';
 import 'infrastructure/order/order_repository.dart';
 
 void main() async {
+  kDebugMode;
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -59,7 +61,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (_) => CartBloc(
                   cartRepository: CartRepository(),
-                )..add(LoadCart(email: userEmail!))),
+                )),
         BlocProvider(
           create: (context) => SearchBloc(
             productRepository: ProductRepository(),
@@ -91,6 +93,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => OrdersBloc(orderRepository: OrderRepository()))
       ],
       child: MaterialApp(
+        
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(

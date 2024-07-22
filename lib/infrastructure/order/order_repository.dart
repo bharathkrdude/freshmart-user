@@ -28,7 +28,7 @@ class OrderRepository extends BaseOrderRepository {
   @override
   Future<void> placeOrder(String email, String orderId, OrderModel order) async{
     try {
-      log('<<<<<<<<<<current uredr>>>>>>>>>>');
+      log('<<<<<<<<<<current oreder>>>>>>>>>>');
       log(email);
       log(orderId);
       log(order.grandTotal.toString());

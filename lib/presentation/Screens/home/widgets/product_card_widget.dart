@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_mart/application/wishlist/whishlist_bloc.dart';
 import 'package:fresh_mart/core/colors.dart';
 import 'package:fresh_mart/domain/models/product_model.dart';
-import 'package:fresh_mart/presentation/Screens/auth/widgets/snackbar.dart';
+import 'package:fresh_mart/presentation/screens/auth/widgets/snackbar.dart';
  
 class ProductCardWidget extends StatelessWidget {
   final ProductModel product;
@@ -36,14 +36,14 @@ class ProductCardWidget extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Image.network(
-                    product.imageUrls[0],
-                    width: size.width / 4,
-                    height: size.width / 4,
+                children: <Widget>[
+                 
+                  Flexible(
+                    child: Image.network(
+                      product.imageUrls[0],
+                      width: size.width / 4,
+                      height: size.width / 4,
+                    ),
                   ),
                   const SizedBox(
                     height: 10,

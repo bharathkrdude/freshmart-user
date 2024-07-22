@@ -6,11 +6,12 @@ import 'package:fresh_mart/application/profile/profile_bloc.dart';
 import 'package:fresh_mart/core/colors.dart';
 import 'package:fresh_mart/core/utils.dart';
 import 'package:fresh_mart/domain/models/profile_model.dart';
-import 'package:fresh_mart/presentation/Screens/adress/add_adress.dart';
-import 'package:fresh_mart/presentation/Screens/adress/widgets/custom_textfield.dart';
-import 'package:fresh_mart/presentation/Screens/profile/widgets/profile_date_picker.dart';
-import 'package:fresh_mart/presentation/Screens/profile/widgets/profile_dropdown.dart';
-import 'package:fresh_mart/presentation/Screens/profile/widgets/profile_photo.dart';
+import 'package:fresh_mart/presentation/screens/adress/add_adress.dart';
+import 'package:fresh_mart/presentation/screens/adress/widgets/custom_textfield.dart';
+import 'package:fresh_mart/presentation/screens/profile/widgets/profile_date_picker.dart';
+import 'package:fresh_mart/presentation/screens/profile/widgets/profile_dropdown.dart';
+import 'package:fresh_mart/presentation/screens/profile/widgets/profile_photo.dart';
+
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:fresh_mart/core/colors.dart';
 import 'package:fresh_mart/core/constants.dart';
-import 'package:fresh_mart/presentation/Screens/checkout/checkout_screen.dart';
+import 'package:fresh_mart/presentation/screens/checkout/checkout_screen.dart';
 import 'package:fresh_mart/presentation/widgets/primary_button_widget.dart';
 
 class CartBillWidget extends StatelessWidget {

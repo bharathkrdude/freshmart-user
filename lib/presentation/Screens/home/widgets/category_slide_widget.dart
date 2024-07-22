@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:fresh_mart/domain/models/category_model.dart';
-import 'package:fresh_mart/presentation/Screens/category/each_catagory.dart';
-import 'package:fresh_mart/presentation/Screens/homeScreen/screen_home.dart';
+import 'package:fresh_mart/presentation/screens/category/each_catagory.dart';
+import 'package:fresh_mart/presentation/screens/home/widgets/category_circle_widget.dart';
 
 class CategorySlideWidget extends StatelessWidget {
   final List<CategoryModel> category;

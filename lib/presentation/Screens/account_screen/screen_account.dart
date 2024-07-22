@@ -1,30 +1,34 @@
+import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_mart/application/profile/profile_bloc.dart';
 import 'package:fresh_mart/core/colors.dart';
 import 'package:fresh_mart/core/constants.dart';
-import 'package:fresh_mart/presentation/Screens/adress/address_screen.dart';
-import 'package:fresh_mart/presentation/Screens/auth/auth_welcome_screen.dart';
-import 'package:fresh_mart/presentation/Screens/favoritesScreen/favourites.dart';
-import 'package:fresh_mart/presentation/Screens/order/orders_screen.dart';
-import 'package:fresh_mart/presentation/Screens/profile/profile_screen.dart';
-import 'package:fresh_mart/presentation/Screens/profile/widgets/profile_photo.dart';
+import 'package:fresh_mart/presentation/screens/adress/address_screen.dart';
+import 'package:fresh_mart/presentation/screens/auth/auth_welcome_screen.dart';
+import 'package:fresh_mart/presentation/screens/favorites/favourites.dart';
+import 'package:fresh_mart/presentation/screens/order/orders_screen.dart';
+import 'package:fresh_mart/presentation/screens/profile/profile_screen.dart';
+import 'package:fresh_mart/presentation/screens/profile/widgets/profile_photo.dart';
+
 
 class ScreenAccount extends StatelessWidget {
+  
   const ScreenAccount({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
         backgroundColor: backgroundColorgrey,
         body: ListView(
-          children: [
+          children:  [
             AccountTop(),
             kHeight,
-            const AccountScreenBody(),
+             AccountScreenBody(),
           ],
         ));
   }
@@ -54,6 +58,7 @@ class AccountScreenBody extends StatelessWidget {
           ontap: () {
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => const OrdersScreen()));
+                log("<<<<<<<Orders>>>>>>>>>>");
           },
         ),
         AccountTileWidget(
@@ -125,34 +130,39 @@ class AccountTileWidget extends StatelessWidget {
 
 
 class AccountTop extends StatelessWidget {
-  const AccountTop({
+   var size,height,width;
+   AccountTop({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+   
+    size = MediaQuery.of(context).size; 
+    height = size.height;
+    width = size.width;
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (context, state) {
         return Stack(
-          alignment:   AlignmentDirectional(0, 20),
+          alignment:   const AlignmentDirectional(0, 20),
           children: [
             Container(
-              height: 200,
+              height: height*0.28,
               width: 400,
               color: backgroundColorWhite,
             ),
             Positioned(
               top: 100,
               child: Container(
-                height: 100,
+                height: height*0.2,
                 width: 400,
                 color: backgroundColorgrey,
               ),
             ),
             Positioned(
-              left: MediaQuery.of(context).size.width/3.8,
+             
               
-              top: 50,
+              top: height*0.06,
               child: Container(
                 color: Colors.white.withOpacity(0.1),
                 margin: const EdgeInsets.all(5.0),

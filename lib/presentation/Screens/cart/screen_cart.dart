@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_mart/application/cart/cart_bloc.dart';
 import 'package:fresh_mart/core/colors.dart';
-import 'package:fresh_mart/presentation/Screens/cartScreen/widgets/cart_bill_widget.dart';
+import 'package:fresh_mart/presentation/screens/cart/widgets/cart_bill_widget.dart';
 import 'package:lottie/lottie.dart';
 import 'widgets/cart_item_widget.dart';
 

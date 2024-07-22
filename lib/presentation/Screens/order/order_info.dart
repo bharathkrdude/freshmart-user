@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_mart/core/colors.dart';
 import 'package:fresh_mart/domain/models/order_model.dart';
-import 'package:fresh_mart/presentation/Screens/order/widgets/order_deliver_address.dart';
-import 'package:fresh_mart/presentation/Screens/order/widgets/order_payment.dart';
-import 'package:fresh_mart/presentation/Screens/order/widgets/order_product_details.dart';
-import 'package:fresh_mart/presentation/Screens/order/widgets/order_status.dart';
+import 'package:fresh_mart/presentation/screens/order/widgets/order_deliver_address.dart';
+import 'package:fresh_mart/presentation/screens/order/widgets/order_payment.dart';
+import 'package:fresh_mart/presentation/screens/order/widgets/order_product_details.dart';
+import 'package:fresh_mart/presentation/screens/order/widgets/order_status.dart';
+
 
 
 import '../../../application/orders/orders_bloc.dart';

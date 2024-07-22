@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_mart/core/colors.dart';
 import 'package:fresh_mart/domain/models/order_model.dart';
-import 'package:fresh_mart/presentation/Screens/order/widgets/order_card.dart';
+import 'package:fresh_mart/presentation/screens/order/widgets/order_card.dart';
 
 import 'package:intl/intl.dart';
 
@@ -30,6 +30,7 @@ class OrdersScreen extends StatelessWidget {
         
       ),
       child: Scaffold(
+        
         appBar: AppBar(
         elevation: 1,
         toolbarHeight: 80,
@@ -42,15 +43,20 @@ class OrdersScreen extends StatelessWidget {
         ),
       ),
         body: BlocBuilder<OrdersBloc, OrdersState>(
+          
           builder: (context, state) {
+            
+         
             if (state is OrdersLoading) {
+              log('<<<<<<<<<<orders screen>>>>>>>>>>');
               return const Center(
                 child: CircularProgressIndicator(
                   strokeWidth: 3,
                   backgroundColor: Colors.white,
-                  color: Colors.black,
+                  color: Color.fromARGB(255, 114, 177, 114),
                 ),
               );
+             
             }
             if (state is OrdersLoaded) {
               log('<<<<<<<<<<orders screen>>>>>>>>>>');

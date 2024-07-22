@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:fresh_mart/presentation/Screens/productsScreen/product_details_screen.dart';
 import 'package:fresh_mart/domain/models/product_model.dart';
+import 'package:fresh_mart/presentation/screens/products_screen/product_details_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});

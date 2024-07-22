@@ -44,7 +44,6 @@ class AddressEdited extends AddressEvent {
   List<Object> get props => [email,address];
 }
 
-
 class AddressDeleted extends AddressEvent {
   final String email;
   final String addressId;
@@ -72,4 +71,3 @@ class AddressCardSelected extends AddressEvent {
   @override
   List<Object> get props => [index];
 }
-

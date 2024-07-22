@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fresh_mart/core/colors.dart';
-import 'package:fresh_mart/presentation/Screens/order/orders_screen.dart';
+import 'package:fresh_mart/presentation/screens/order/orders_screen.dart';
 
 import '../adress/add_adress.dart';
 

@@ -10,7 +10,7 @@ import 'package:fresh_mart/application/address/address_bloc.dart';
 import 'package:fresh_mart/application/checkout/checkout_bloc.dart';
 import 'package:fresh_mart/core/colors.dart';
 import 'package:fresh_mart/domain/models/adress_model.dart';
-import 'package:fresh_mart/presentation/Screens/adress/widgets/custom_textfield.dart';
+import 'package:fresh_mart/presentation/screens/adress/widgets/custom_textfield.dart';
 
 
 class AddAddressScreen extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fresh_mart/core/colors.dart';
 import 'package:fresh_mart/domain/models/category_model.dart';
-import 'package:fresh_mart/presentation/Screens/category/each_catagory.dart';
+import 'package:fresh_mart/presentation/screens/category/each_catagory.dart';
 
 class CategoryCard extends StatelessWidget {
  final CategoryModel category;

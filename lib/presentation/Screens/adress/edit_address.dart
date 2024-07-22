@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_mart/core/colors.dart';
-import 'package:fresh_mart/presentation/Screens/adress/add_adress.dart';
+import 'package:fresh_mart/presentation/screens/adress/add_adress.dart';
 
 import '../../../application/address/address_bloc.dart';
 import '../../../domain/models/adress_model.dart';

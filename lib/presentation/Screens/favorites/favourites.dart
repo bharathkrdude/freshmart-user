@@ -4,8 +4,9 @@ import 'package:fresh_mart/application/product/product_bloc.dart';
 import 'package:fresh_mart/application/wishlist/whishlist_bloc.dart';
 import 'package:fresh_mart/core/colors.dart';
 import 'package:fresh_mart/domain/models/product_model.dart';
-import 'package:fresh_mart/presentation/Screens/homeScreen/widgets/product_card_widget.dart';
-import 'package:fresh_mart/presentation/Screens/productsScreen/product_details_screen.dart';
+import 'package:fresh_mart/presentation/screens/products_screen/product_details_screen.dart';
+
+import '../home/widgets/product_card_widget.dart';
 
 class ScreenFavourites extends StatelessWidget {
   const ScreenFavourites({super.key});

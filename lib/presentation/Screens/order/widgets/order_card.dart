@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_mart/core/colors.dart';
-import 'package:fresh_mart/presentation/Screens/order/order_info.dart';
+import 'package:fresh_mart/presentation/screens/order/order_info.dart';
 
 import '../../../../application/product/product_bloc.dart';
 import '../../../../domain/models/order_model.dart';

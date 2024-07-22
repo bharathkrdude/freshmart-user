@@ -48,7 +48,7 @@ class ProfilePhotoWidget extends StatelessWidget {
                                     if (loadingProgress==null) {
                                       return child;
                                     } else {
-                                      return Center(
+                                      return const Center(
                                         child: CircularProgressIndicator(),
                                       );
                                     }
@@ -94,7 +94,7 @@ class ProfilePhotoWidget extends StatelessWidget {
                                     if (loadingProgress==null) {
                                       return child;
                                     } else {
-                                      return Center(
+                                      return const Center(
                                         child: CircularProgressIndicator(),
                                       );
                                     }

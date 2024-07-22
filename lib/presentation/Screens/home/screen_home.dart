@@ -13,12 +13,13 @@ import 'package:fresh_mart/application/profile/profile_bloc.dart';
 import 'package:fresh_mart/application/wishlist/whishlist_bloc.dart';
 import 'package:fresh_mart/core/colors.dart';
 import 'package:fresh_mart/core/constants.dart';
-import 'package:fresh_mart/domain/models/category_model.dart';
-import 'package:fresh_mart/presentation/Screens/category/category_screen.dart';
-import 'package:fresh_mart/presentation/Screens/homeScreen/widgets/category_slide_widget.dart';
+import 'package:fresh_mart/presentation/screens/category/category_screen.dart';
 
-import 'package:fresh_mart/presentation/Screens/homeScreen/widgets/product_horizontal_list_widget.dart';
-import 'package:fresh_mart/presentation/Screens/search_screen/search_screen.dart';
+
+
+import 'package:fresh_mart/presentation/screens/home/widgets/category_slide_widget.dart';
+import 'package:fresh_mart/presentation/screens/home/widgets/product_horizontal_list_widget.dart';
+import 'package:fresh_mart/presentation/screens/search_screen/search_screen.dart';
 
 final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
@@ -36,6 +37,7 @@ class ScreenHome extends StatelessWidget {
         BlocProvider.of<ProfileBloc>(context)
             .add(ProfileGetLoaded(email: currentUser));
         BlocProvider.of<CheckoutBloc>(context).add(const CheckoutUpdated());
+       
         BlocProvider.of<OrdersBloc>(context).add(OrdersGetLoaded(email: currentUser));
       },
     );
@@ -158,21 +160,18 @@ class ScreenHome extends StatelessWidget {
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
                       children: [
-                        _seeAllView(
-                          context,
-                          "Categories",
-                          () {
+                        SeeAllview(context: context, name: "Categories", onpress: () {
                              Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
                                       const CategoryScreen()));
-                          }
-                        ),
+                          }),
                         const SizedBox(
                           height: 24,
                         ),
                         BlocBuilder<CategoryBloc, CategoryState>(
+                          key: UniqueKey(),
                             builder: (context, state) {
                           if (state is CategoryLoading) {
                             return const Center(
@@ -191,13 +190,9 @@ class ScreenHome extends StatelessWidget {
                           }
                         }),
                         kWidth30,
-                        _seeAllView(
-                          context,
-                          "Best Selling",
-                          (){
+                        SeeAllview(context: context, name: "Best Selling", onpress: (){
 
-                          }
-                        ),
+                          }),
                         kWidth20,
                         ProductSlideWidget(
                             key: UniqueKey(), products: state.products)
@@ -212,31 +207,6 @@ class ScreenHome extends StatelessWidget {
           },
         ),
       ),
-    );
-  }
-
-  Widget _seeAllView(
-    BuildContext context,
-   
-   final String name,
-   final VoidCallback onpress,
-  ) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          name,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-        InkWell(
-          onTap: onpress,
-          child: const Text(
-            "See All",
-            style: TextStyle(
-                fontSize: 14, color: primaryDark, fontWeight: FontWeight.w600),
-          ),
-        ),
-      ],
     );
   }
 // final ProductModel product;
@@ -255,44 +225,37 @@ class ScreenHome extends StatelessWidget {
 //       });
 }
 
-class CategoryCircleWidget extends StatelessWidget {
-  final CategoryModel category;
-  final VoidCallback onTap;
-  const CategoryCircleWidget(
-      {super.key, required this.category, required this.onTap});
+class SeeAllview extends StatelessWidget {
+  const SeeAllview({
+    super.key,
+    required this.context,
+    required this.name,
+    required this.onpress,
+  });
+
+  final BuildContext context;
+  final String name;
+  final VoidCallback onpress;
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 1,
-      child: InkWell(
-        onTap: onTap,
-        child: Column(
-          children: [
-            CircleAvatar(
-              backgroundColor: backgroundColorWhite,
-              radius: 32,
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Image.network(
-                  category.imageUrl,
-                  scale: 4.0,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Text(
-              category.name,
-              style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black),
-            )
-          ],
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          name,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
-      ),
+        InkWell(
+          onTap: onpress,
+          child: const Text(
+            "See All",
+            style: TextStyle(
+                fontSize: 14, color: primaryDark, fontWeight: FontWeight.w600),
+          ),
+        ),
+      ],
     );
   }
 }
+

@@ -8,7 +8,7 @@ import 'package:fresh_mart/application/wishlist/whishlist_bloc.dart';
 import 'package:fresh_mart/core/colors.dart';
 import 'package:fresh_mart/core/constants.dart';
 import 'package:fresh_mart/domain/models/product_model.dart';
-import 'package:fresh_mart/presentation/Screens/homeScreen/widgets/product_card_widget.dart';
+import 'package:fresh_mart/presentation/screens/home/widgets/product_card_widget.dart';
 import 'package:fresh_mart/presentation/widgets/primary_button_widget.dart';
 
 class ProductDetailsScreen extends StatelessWidget {

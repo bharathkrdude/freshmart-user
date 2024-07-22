@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_mart/application/checkout/checkout_bloc.dart';
 import 'package:fresh_mart/core/colors.dart';
-import 'package:fresh_mart/presentation/Screens/adress/address_screen.dart';
-import 'package:fresh_mart/presentation/Screens/checkout/widgets/checkout_payment.dart';
-import 'package:fresh_mart/presentation/Screens/checkout/widgets/new_address_card.dart';
-import 'package:fresh_mart/presentation/Screens/order/order_confirm.dart';
+import 'package:fresh_mart/presentation/screens/adress/address_screen.dart';
+import 'package:fresh_mart/presentation/screens/checkout/widgets/checkout_payment.dart';
+import 'package:fresh_mart/presentation/screens/checkout/widgets/new_address_card.dart';
+import 'package:fresh_mart/presentation/screens/order/order_confirm.dart';
 
 
 import 'package:razorpay_flutter/razorpay_flutter.dart';

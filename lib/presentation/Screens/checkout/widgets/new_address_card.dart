@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fresh_mart/presentation/Screens/adress/add_adress.dart';
+import 'package:fresh_mart/presentation/screens/adress/add_adress.dart';
 
 class NewAddressCard extends StatelessWidget {
   const NewAddressCard({

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fresh_mart/application/orders/orders_bloc.dart';
 import 'package:fresh_mart/domain/models/order_model.dart';
-import 'package:fresh_mart/presentation/Screens/order/widgets/each_order_status.dart';
+import 'package:fresh_mart/presentation/screens/order/widgets/each_order_status.dart';
 
 
 class OrderStatusWidget extends StatelessWidget {

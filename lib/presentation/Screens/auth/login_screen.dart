@@ -7,7 +7,7 @@ import 'package:fresh_mart/Presentation/screens/Auth/widgets/snackbar.dart';
 import 'package:fresh_mart/Presentation/screens/main_screen/screen_main.dart';
 import 'package:fresh_mart/Presentation/widgets/custom_hint_text_widget.dart';
 import 'package:fresh_mart/core/constants.dart';
-import 'package:fresh_mart/presentation/Screens/auth/auth_welcome_screen.dart';
+import 'package:fresh_mart/presentation/screens/auth/auth_welcome_screen.dart';
 import '../../../core/colors.dart';
 import '../../widgets/custom_text_widget.dart';
 import '../../widgets/primary_button_widget.dart';
