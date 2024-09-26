@@ -6,7 +6,6 @@ import 'dart:async';
 import 'package:fresh_mart/Presentation/screens/main_screen/screen_main.dart';
 import 'package:fresh_mart/core/colors.dart';
 
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -18,18 +17,17 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(
-        const Duration(seconds: 3),
-        () =>navigateUser());
+    Future.delayed(const Duration(seconds: 3), () => navigateUser());
   }
-  void navigateUser()async{
- if(FirebaseAuth.instance.currentUser!=null){
- Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const ScreenMain()));
- }else{
- Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));
- }
+
+  void navigateUser() async {
+    if (FirebaseAuth.instance.currentUser != null) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const ScreenMain()));
+    } else {
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const WelcomeScreen()));
+    }
   }
 
   @override

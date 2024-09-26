@@ -1,13 +1,9 @@
-
-
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:fresh_mart/domain/models/profile_model.dart';
 import 'package:fresh_mart/infrastructure/profile/base_profile_repo.dart';
-
 import 'package:image_picker/image_picker.dart';
 
 class ProfileRepository extends BaseProfileRepository {
